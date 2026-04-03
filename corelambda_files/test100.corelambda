@@ -1,0 +1,14 @@
+-- twice double 1
+-- (\f.\x.f(f x)) (\y.y+y) 1
+
+app(
+    app(
+        abs(f:->(Int,Int).
+	    abs(x:Int.
+	        app(
+		    f,
+		    app(f,x)))),
+        abs(y:Int.+(y,y))),
+    1)
+
+        

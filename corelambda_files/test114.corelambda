@@ -1,0 +1,23 @@
+-- see test9.systemF
+let
+  f1 = abs (x:Int. record (T0=x))
+in
+  let
+    f2 = abs (x:Record (fst:Int, snd:Int). record (T0=x))
+  in
+    let
+      a = app (f1, 1)
+    in
+      let
+        b = app (f1, 2)
+      in
+        let
+	  c = app (f2, record(fst=3,snd=4))
+	in
+	  +(project(a.T0),+(project(b.T0),+(project((project(c.T0)).fst),project((project(c.T0)).snd))))
+	end
+      end
+    end
+  end
+end
+

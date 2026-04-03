@@ -1,0 +1,2 @@
+app(if true then abs(x: Int. x) else abs(y: Int. y) fi, 5)
+

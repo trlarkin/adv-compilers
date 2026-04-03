@@ -1,35 +1,21 @@
 module Main where
 
-import           Data.Either
+import           AbstractSyntax     as S
+import           CCMachine          as CC
+import           Control.Monad
 import           Parser
-import           Text.Parsec.Char
-import           Text.Parsec.Combinator
-import           Text.Parsec.Error
-import           Text.Parsec.Prim
-import           Text.Parsec.String
-
+import           Public
+import           System.Environment
 
 main :: IO ()
-main = print "Hello, World"
+main = do
+    [args] <- getArgs
+    mainCompiler args
 
-testParse :: String -> IO ()
-testParse s = putStrLn $ case parse (termParser <* eof) "" (removeAllWhitespace s) of
-    Left err -> "!!! ERROR !!! \n" ++ show err
-    Right x  -> show x
-
-parentheses :: Parser (String, String)
-parentheses = (,) <$> (char '(' *> many letter) <*> (char ',' *> many letter <* char ')')
--- parentheses = do
---     _ <- char '('
---     a <- anyChar
---     _ <- char ','
---     b <- anyChar
---     _ <- char ')'
---     return (a, b)
-
-removeAllWhitespace :: String -> String
-removeAllWhitespace []        = []
-removeAllWhitespace (' ':xs)  = removeAllWhitespace xs
-removeAllWhitespace ('\n':xs) = removeAllWhitespace xs
-removeAllWhitespace ('\t':xs) = removeAllWhitespace xs
-removeAllWhitespace (x:xs)    = x : removeAllWhitespace xs
+compileWithCC :: FilePath -> IO ()
+compileWithCC fp = do
+    program <- parseProgram fp
+    print program
+    print $ typeCheckTerm program
+    let evalResult = CC.ccMachineEval program
+    print evalResult

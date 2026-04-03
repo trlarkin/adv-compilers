@@ -1,0 +1,11 @@
+{- let 
+    isNill = abs(x:mu(X.Variant(nil:Unit,ls:Record(x:Int, xs:X))).
+                 case 
+                    unfold(mu(X.Variant(nil:Unit,ls:Record(x:Int, xs:X))), x) 
+                 of nil = n => true
+                 |  ls  = ls => false
+                 esac)
+in
+-}
+    abs(x:mu(X.Variant(nil:Unit,ls:Record(x:Int, xs:X))) . x)
+--end

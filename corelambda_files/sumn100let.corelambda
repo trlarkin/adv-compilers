@@ -1,0 +1,6 @@
+app (
+fix (abs (f:->(Int,Int). abs (x: Int. if =(0,x) then 0 else +(x, let y = app(f, -(x,1)) in y end) fi)))
+,
+100
+)
+

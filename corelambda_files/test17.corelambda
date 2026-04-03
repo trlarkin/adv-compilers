@@ -1,0 +1,51 @@
+
+app(
+    abs(
+        x:Variant(num:Int, bool:Bool)
+        .
+        case 
+            tag(num=+(1,1) as Variant(bool:Bool, num:Int))
+        of 
+            num=n => =(0,n) 
+        | 
+            bool=b => if b then false else true fi 
+        esac
+        ),
+    tag(num=+(1,1) as Variant(bool:Bool, num:Int))
+)
+
+{-
+(app(abs(x: Variant(num: Int, bool: Bool). case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac), tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)))
+,□)
+
+(tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int))
+,app(abs(x: Variant(num: Int, bool: Bool). case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac), □))
+
+(IntAdd(1, 1)
+,app(abs(x: Variant(num: Int, bool: Bool). case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac), tag(num = □ as Variant(bool: Bool, num: Int))))
+
+(2
+,app(abs(x: Variant(num: Int, bool: Bool). case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac), tag(num = □ as Variant(bool: Bool, num: Int))))
+
+(app(abs(x: Variant(num: Int, bool: Bool). case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac), tag(num = 2 as Variant(bool: Bool, num: Int)))
+,□)
+
+(case tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac
+,□)
+
+(tag(num = IntAdd(1, 1) as Variant(bool: Bool, num: Int))
+,case □ of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac)
+
+(IntAdd(1, 1)
+,case tag(num = □ as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac)
+
+(2
+,case tag(num = □ as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac)
+
+(case tag(num = 2 as Variant(bool: Bool, num: Int)) of num = n => IntEq(0, n) | bool = b => if b then false else true fi esac
+,□)
+
+(IntEq(0, 2),□)
+
+(false,□)
+-}

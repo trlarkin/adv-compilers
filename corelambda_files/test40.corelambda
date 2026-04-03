@@ -1,0 +1,3 @@
+{- Fischer-Plotkin CPS of test39.corelambda -}
+
+app(abs(k1:->(Bool,Bool).app(abs(k2:->(->(->(Int,->(->(Bool,Bool),Bool)),->(->(Bool,Bool),Bool)),Bool).app(k2,abs(f:->(Int,->(->(Bool,Bool),Bool)).abs(k3:->(Bool,Bool).app(abs(k4:->(->(Int,->(->(Bool,Bool),Bool)),Bool).app(k4,f)),abs(v5:->(Int,->(->(Bool,Bool),Bool)).app(abs(k7:->(Int,Bool).app(k7,10)),abs(v8:Int.app(app(v5,v8),k3))))))))),abs(v10:->(->(Int,->(->(Bool,Bool),Bool)),->(->(Bool,Bool),Bool)).app(abs(k12:->(->(Int,->(->(Bool,Bool),Bool)),Bool).app(k12,abs(x:Int.abs(k13:->(Bool,Bool).app(k13,false))))),abs(v15:->(Int,->(->(Bool,Bool),Bool)).app(app(v10,v15),k1)))))),abs(a:Bool.a))

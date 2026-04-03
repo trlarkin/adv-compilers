@@ -22,63 +22,58 @@ name:               adv-compilers
 --                  | | | +--- code changes with no API change
 version:            0.1.0.0
 
--- A short (one-line) description of the package.
 -- synopsis:
-
--- A longer description of the package.
 -- description:
-
--- The license under which the package is released.
 license:            MIT
-
--- The file containing the license text.
 license-file:       LICENSE
-
--- The package author(s).
 author:             trlarkin
-
--- An email address to which users can send suggestions, bug reports, and patches.
 maintainer:         tristanjlarkin@gmail.com
-
--- A copyright notice.
--- copyright:
 build-type:         Simple
-
--- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
 extra-doc-files:    CHANGELOG.md
-
--- Extra source files to be distributed with the package, such as examples, or a tutorial module.
--- extra-source-files:
 
 common warnings
     ghc-options: -Wall
 
-executable adv-compilers
-    -- Import common warning flags.
+test-suite test
+    type: exitcode-stdio-1.0
+    ghc-options: -Wall
+    hs-source-dirs: test
+    main-is:    Test.hs
+    build-depends: base ^>=4.19.1.0
+                 , HUnit
+                 , adv-compilers
+    default-language: Haskell2010
+
+library 
+    import:        warnings
+    exposed-modules: Parser, CCMachine, Public, MyErrorType, CEKMachine, AbstractSyntax, CKMachine
+    other-modules: Utils
+                 , IntegerArithmetic
+                 , Latex  
+                 , Typing
+                 , StructuralOperationalSemantics_CBV
+                 , ParserUtils
+                 , Typing
+                 , ErrorMessages
+                 , ReductionSemantics
+                 , EvaluationContext
+                 , DeBruijnWithIntegerLabelsAndTags
+                 , StructuralOperationalSemantics_CBV_forDeBruijn
+                 , NaturalSemantics_CBV
+                 , NaturalSemanticsWithEnvironmentsAndClosures_CBV
+                 , NaturalSemanticsWithEnvironmentsClosuresAndDeBruijnIndices_CBV
+                 , CPS
+    build-depends: base ^>=4.19.1.0
+                 , parsec
+                 , transformers
+    hs-source-dirs: lib
+    default-language: Haskell2010
+
+executable corelambda
     import:           warnings
-
-    -- .hs or .lhs file containing the Main module.
     main-is:          Main.hs
-
-    -- Modules included in this executable, other than Main.
-    other-modules:  AbstractSyntax
-                  , IntegerArithmetic
-                  , Latex  
-                  , AbstractSyntax
-                  , Typing
-                  , StructuralOperationalSemantics_CBV
-                  , Parser
-                  , ParserUtils
-
-    -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-
-    -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.15.1.0
-                    , parsec
-
-    -- Directories containing source files.
-    hs-source-dirs:   app
-
-    -- Base language which the package is written in.
+    build-depends: base ^>=4.19.1.0
+                 , adv-compilers 
+    hs-source-dirs:   app 
     default-language: Haskell2010

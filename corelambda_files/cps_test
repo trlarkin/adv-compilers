@@ -1,0 +1,6 @@
+--app(abs(x:Int. 2), 9)
+--abs(x:Int. 2)
+-- 9
+-(100000, 99999)
+
+--fix(abs(y:Int.abs(x:Int.5)))

@@ -1,0 +1,13 @@
+-- twice square 2
+
+app(
+    app(
+        abs(f:->(Int,Int).
+	    abs(x:Int.
+	        app(
+		    f,
+		    app(f,x)))),
+        abs(y:Int.*(y,y))),
+    2)
+
+        

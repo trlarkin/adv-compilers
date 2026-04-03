@@ -1,0 +1,41 @@
+{- summing the number of steps, over the integers 1..1000000 as starting points
+   for Collatz counting steps; using fix and let -}
+
+let collatzCounting =
+
+let
+   iseven = abs (x:Int. =(x,*(2,/(x,2))))		  
+in
+  let
+    collatz' = fix (abs (collatz':->(Int,->(Int,Int)). abs (x: Int. abs (stepAcc: Int.
+                if app (iseven, x) then app (app (collatz', /(x,2)), +(stepAcc,1)) else
+                  if =(x,1) then stepAcc else 
+                    app (app (collatz', +(*(3,x),1)), +(stepAcc,1))
+		  fi
+		fi))))
+  in
+    let
+      collatz = abs (n: Int. app (app (collatz', n), 0))
+    in
+      collatz
+    end
+  end
+end
+
+
+in
+
+let sumUpToN = fix (abs (s: ->(->(Int,Int),->(Int,Int)). abs (f:->(Int,Int). abs (n:Int.
+                      if =(n,0) then 0
+		                else +(app(f,n),
+				       app(app(s,f),-(n,1)))
+                      fi
+		   ))))
+
+in
+
+app (app (sumUpToN, collatzCounting), 1000000)
+
+end
+end
+

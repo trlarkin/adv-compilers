@@ -1,0 +1,54 @@
+let
+v1=fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),tag(nil=unit
+as
+Variant(nil:Unit,cons:Record(fst:Char,snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))
+in let
+v4=abs(v2:Char.abs(v3:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),tag(cons=record(fst=v2,snd=v3)
+as
+Variant(nil:Unit,cons:Record(fst:Char,snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))))
+in let
+v8=abs(v5:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+
+case
+unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v5) of
+nil=v6=>true | cons=v7=>false esac) in let
+
+v11=abs(v9:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+
+case
+    unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v9)
+of
+    cons=v10=>project(v10.fst) esac) 
+    
+in let
+v14=abs(v12:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).case
+unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v12) of
+cons=v13=>project(v13.snd) esac) in let
+v22=fix(abs(v15:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))))).abs(v16:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).abs(v17:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).case
+unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v16) of
+nil=v18=>v17 | cons=v19=>let v20=project(v19.fst) in let
+v21=project(v19.snd) in app(app(v4,v20),app(app(v15,v21),v17)) end end
+esac)))) in let
+v29=fix(abs(v23:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))).abs(v24:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).case
+unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v24) of
+nil=v25=>v1 | cons=v26=>let v27=project(v26.fst) in let
+v28=project(v26.snd) in app(app(v22,app(v23,v28)),app(app(v4,v27),v1))
+end end esac))) in let
+v32=abs(v30:Int.abs(v31:Int.-(v30,*(v31,/(v30,v31))))) in let
+v35=fix(abs(v33:->(Int,Int).abs(v34:Int.if =(0,v34) then 1 else
+*(v34,app(v33,-(v34,1))) fi))) in let v43=let
+v41=fix(abs(v36:->(Int,Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))).abs(v37:Int.if
+=(v37,0) then v1 else let v38 = /(v37,10) in let
+v39=app(app(v32,v37),10) in let v40=chr(+(v39,ord('0'))) in
+app(app(v4,v40),app(v36,v38)) end end end fi))) in abs(v42:Int.if
+<(v42,0) then v1 else if =(v42,0) then app(app(v4,'0'),v1) else
+app(v29,app(v41,v42)) fi fi) end in let v53=let
+v51=fix(abs(v44:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Int).abs(v45:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).case
+unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),v45) of
+nil=v46=>0 | cons=v47=>let v48=project(v47.fst) in let
+v49=project(v47.snd) in let v50 = -(ord(v48),ord('0')) in
++(v50,*(10,app(v44,v49))) end end end esac))) in
+abs(v52:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).app(v51,app(v29,v52)))
+end in
+abs(v54:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).app(v43,app(v35,app(v53,v54))))
+end end end end end end end end end end end

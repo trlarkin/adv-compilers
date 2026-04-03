@@ -1,0 +1,29 @@
++(
++(+(+(2,let k = 5 in +(k,let l=4 in +(l,l) end) end),3),7)
+,
++(
+let p =   let q = 6 in +(q,q) end
+in let r = 5 in +(r,p) end end
+,
++(
+let x = +(2,let y = +(3,4) in +(7,y) end)
+in
+  let z = *(let w = +(x,x) in w end, let t = -(x,x) in *(t,t) end)
+  in
+    +(x,-(x,z))
+  end
+end,
+let a =
+   let x = +(2,let y = +(3,4) in +(7,y) end)
+in
+  let z = *(let w = +(x,x) in w end, let t = -(x,x) in *(t,t) end)
+  in
+    +(x,-(x,z))
+  end
+end
+in
+  /(a,a)
+end
+)
+)
+)

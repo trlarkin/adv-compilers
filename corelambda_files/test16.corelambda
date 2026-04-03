@@ -1,0 +1,50 @@
+{-
+Example from Pierce, p. 144
+ff:
+abs (ieio:Record(iseven:->(Int,Bool), isodd:->(Int,Bool)). record(iseven=abs(x:Int. if =(0,x) then true else app (project(ieio.isodd), -(x,1)) fi), isodd=abs(x:Int. if =(0,x) then false else app (project(ieio.iseven), -(x,1)) fi)))
+r = fix ff:
+fix (abs (ieio:Record(iseven:->(Int,Bool), isodd:->(Int,Bool)). record(iseven=abs(x:Int. if =(0,x) then true else app (project(ieio.isodd), -(x,1)) fi), isodd=abs(x:Int. if =(0,x) then false else app (project(ieio.iseven), -(x,1)) fi))))
+iseven = r.iseven:
+project (fix (abs (ieio:Record(iseven:->(Int,Bool), isodd:->(Int,Bool)). record(iseven=abs(x:Int. if =(0,x) then true else app (project(ieio.isodd), -(x,1)) fi), isodd=abs(x:Int. if =(0,x) then false else app (project(ieio.iseven), -(x,1)) fi)))) . iseven)
+iseven 7:
+-}
+
+app (
+    project (
+        fix (
+            abs (
+                ieio : Record(
+                    iseven:->(Int,Bool), 
+                    isodd:->(Int,Bool)
+                ). 
+                record(
+                    isodd=abs(
+                        x:Int. if =(0,x) 
+                               then false 
+                               else app (project(ieio.iseven), -(x,1)) 
+                               fi
+                    ), 
+                    iseven=abs(
+                        x:Int . 
+                            if =(0,x) 
+                            then true 
+                            else app (project(ieio.isodd), -(x,1)) 
+                            fi
+                    )
+                )
+            )
+        ) . 
+        iseven
+    ), 
+    7
+)
+
+
+
+{-
+
+In general, this recursion scheme, fix (abs (x:Record(...))),
+is beyond the abilities of call-by-value abstract machines.
+We can evaluate it directly using SOS-CBV.
+
+-}

@@ -1,0 +1,9 @@
+--test to see if a program will diverge under CBV but not CBN
+
+app ( abs (x: Int. 999), 
+
+
+   --the following line is a divergent term:
+   app (fix (abs (f:->(Int,Int). abs (x: Int. if =(0,x) then 1 else *(x, app(f, +(x,1))) fi))), 6)
+
+)

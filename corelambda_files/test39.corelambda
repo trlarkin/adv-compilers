@@ -1,0 +1,1 @@
+app(abs(f:->(Int,Bool).999),abs(x:Int.false))

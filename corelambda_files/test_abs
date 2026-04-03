@@ -1,0 +1,5 @@
+let 
+    addThree = abs(x:Int. abs(y:Int. abs(z:.+(x, +(y, z)))))
+in
+    app(addThree, 1)
+end

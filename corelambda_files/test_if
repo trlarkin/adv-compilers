@@ -1,0 +1,17 @@
+if  {- {-too many if statements -- comment in comment -}
+    if true 
+    then true 
+    else false 
+    fi
+then
+    if true 
+    then 
+        if true 
+        then true
+        else false
+        fi 
+    else false
+    fi 
+else false
+fi 
+-- end of function

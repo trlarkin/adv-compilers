@@ -1,0 +1,147 @@
+let
+   stringComputeFactorial =
+               
+               -- a String->String program to compute factorials
+               
+               let nilChar =
+               fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+                    tag(nil=unit as Variant(nil:Unit,cons:Record(fst:Char,snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))
+               in
+               let consChar =
+               abs(n:Char. abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). 
+               fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+                    tag(cons=record(fst=n,snd=l) as Variant(nil:Unit,cons:Record(fst:Char,
+                                                                                 snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))))
+               in
+               let nullChar =
+               abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),l) of nil=u => true | cons=p => false esac)
+               in
+               let headChar =
+               abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), l) of cons=p => project(p.fst) esac)
+               in
+               let tailChar =
+               abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), l) of cons=p => project(p.snd) esac)
+               in
+               let appendChar =
+               fix (abs (append:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))))).
+                        abs (xs:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                            abs (ys:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                                case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), xs) of
+                                   nil=u => ys
+                                 | cons=p => let hd = project(p.fst)
+                                             in let tl = project(p.snd)
+                                             in app (app (consChar, hd), app (app (append, tl), ys))
+                                             end end
+                                esac
+                            ))))
+               in
+               let reverseChar =
+               -- naive
+               fix (abs (reverse:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))).
+                         abs (cs:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                            case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), cs) of
+                               nil=u => nilChar
+                             | cons=p => let hd = project(p.fst)
+                                         in let tl = project(p.snd)
+                                         in app (app (appendChar, app (reverse, tl)), app (app (consChar, hd), nilChar))
+                                         end end
+                            esac
+                         )))
+               in
+               let intMod =
+               -- this works for positive arguments; need to check negative arguments in either position
+               abs (n:Int. abs (m:Int. -(n, *(m, /(n,m)))))
+               in
+               let intFact =
+               -- not tail-recursive!
+               fix (abs (f:->(Int,Int). abs (x: Int. if =(0,x) then 1 else *(x, app(f, -(x,1))) fi)))
+               in
+               let showInt =
+               -- does not handle negative numbers
+               
+               let
+                 showPosIntRev = fix (abs (showPosIntRev:->(Int,Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))).
+                                  abs (n:Int. if =(n,0) then nilChar else
+                                     let
+                                       d = /(n,10)
+                                     in
+                                       let
+                                         r = app (app (intMod, n), 10)
+                                       in
+                                         let
+                                           cd = chr (+(r,ord('0')))
+                                         in
+                                           app (app (consChar, cd), app (showPosIntRev, d))
+                                         end
+                                       end
+                                     end
+                                   fi
+                                  )))
+               in
+                 abs (n:Int. if <(n,0) then nilChar else
+               --                           ------- TO DO: negative numbers
+                             if =(n,0) then app (app (consChar, '0'), nilChar) else
+                             app (reverseChar, app (showPosIntRev, n))
+                             fi fi)
+               end
+               in
+               let readInt =
+               let
+                 f = fix (abs (f:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Int).
+                               abs (s:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                                  case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), s) of
+                                     nil=u => 0
+                                   | cons=p => let c = project(p.fst)
+                                               in let cs = project(p.snd)
+                                               in let d = -(ord(c),ord('0'))
+                                               in +(d,*(10,app(f,cs)))
+                                               end end end
+                                  esac
+                               )))
+               in
+                 abs (s:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                      app (f, app (reverseChar, s)))
+               end
+               in
+               
+               abs (s:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                    app (showInt, app (intFact, app (readInt, s))))
+               
+               end
+               end
+               end
+               end
+               end
+               end
+               end
+               end
+               end
+               end
+               end
+               
+in
+
+let
+   number10string =
+               
+               let
+                 nilChar = fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+                    tag(nil=unit as Variant(nil:Unit,cons:Record(fst:Char,snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))
+               in
+               let
+                 consChar = abs(n:Char. abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). 
+                 fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+                    tag(cons=record(fst=n,snd=l) as Variant(nil:Unit,cons:Record(fst:Char,
+                                                                                 snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))))
+               in
+                 app (app (consChar, '1'), app (app (consChar, '0'), nilChar))
+               
+               end
+               end
+
+in
+
+   app (stringComputeFactorial, number10string)
+
+end
+end

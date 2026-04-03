@@ -1,0 +1,24 @@
+-- iterate 3 double 1
+
+app(
+    app(
+        app(
+	    fix(abs(i:->(Int,->(->(Int,Int),->(Int,Int))).
+	            abs(n:Int.
+		        abs(f:->(Int,Int).
+			    abs(v:Int.
+			        if =(n,0) then v
+			                  else app (f, app (app (app (i, -(n,1)), f), v))
+			        fi
+         		        )
+			    )
+			)
+		     )
+	       ),
+	    3
+	   ),
+	abs(y:Int.+(y,y))
+       ),
+    1
+   )
+	       

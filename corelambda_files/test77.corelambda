@@ -1,0 +1,8 @@
+
+-- same as test28.corelambda, but let-bindings have been turned into lambda-bindings
+
+app (abs (iseven:->(Int,Bool). app (iseven, 7)),
+ app (abs (mod:->(Int,->(Int,Int)). abs (kkk:Int. =(0, app(app(mod,kkk),2)))),
+  abs (mmm:Int. abs (nnn:Int. -(mmm,*(nnn,/(mmm,nnn)))))
+ )
+)

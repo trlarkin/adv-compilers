@@ -1,0 +1,8 @@
+fix(abs(f:Int.+(1,f)))
+
+{-
+=> fix(abs(f:Int.+(1,f))) {t2 = +(1,f)}
+=> +(1,fix(abs(f:Int.+(1,f))))
+=> +(1,+(1,fix(abs(f:Int.+(1,f)))))
+=> infinity
+-}

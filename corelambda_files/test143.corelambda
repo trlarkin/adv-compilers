@@ -1,0 +1,56 @@
+{- same as test142, but function collatz'' instead of being curried (as collatz' was) takes a record
+   as its single parameter and it returns a record - so it is tail-recursive;
+   AND sumUpToN is made tail recursive with an accumulating parameter, though we've left it curried
+-}   
+
+{- summing the number of steps, over the integers 1..1000000 as starting points
+   for Collatz counting steps; using fix and let -}
+
+let collatzCounting =
+
+let
+   iseven = abs (x:Int. =(x,*(2,/(x,2))))		  
+in
+  let
+    collatz'' = fix (abs (collatz'':->(Record(x:Int,stepAcc:Int),Record(x:Int,stepAcc:Int)).
+                      abs (r:Record(x:Int,stepAcc:Int).
+		       let x = project (r.x) in
+		        let stepAcc = project (r.stepAcc) in
+			 if app (iseven, x) then
+			   app (collatz'', record(x=/(x,2),stepAcc=+(stepAcc,1)))
+			 else if =(x,1) then record(x=x,stepAcc=stepAcc)
+			 else app (collatz'', record(x=+(*(3,x),1), stepAcc=+(stepAcc,1)))
+	                 fi fi
+			end
+		       end)))
+  in
+    let
+      collatz = abs (n: Int. let r = app (collatz'', record(x=n,stepAcc=0))
+                             in project(r.stepAcc)
+			     end)
+    in
+      collatz
+    end
+  end
+end
+
+
+in
+let sumUpToN =
+   let
+     s' = fix (abs (s':->(->(Int,Int),->(Int,->(Int,Int))).
+                abs (f:->(Int,Int). abs (n:Int. abs (acc:Int.
+		 if =(n,0) then acc
+		           else app (app (app (s', f), -(n,1)), +(app(f,n), acc))
+	         fi)))))
+   in
+     abs (f:->(Int,Int). abs (n:Int. app (app (app (s', f), n), 0)))
+   end
+
+in
+
+app (app (sumUpToN, collatzCounting), 1000000)
+
+end
+end
+

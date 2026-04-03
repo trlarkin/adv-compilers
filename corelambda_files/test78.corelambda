@@ -1,0 +1,3 @@
+--a term for testing defunctionalization: k6 has type ->(Bool,Int), and must be applied to false, but there is no abstraction of that type
+
+app(abs(k1: ->(Int,Int). app(abs(k2: ->(->(->(Int,->(->(Bool,Int),Int)),->(->(Int,Int),Int)),Int). app(k2, abs(f: ->(Int,->(->(Bool,Int),Int)). abs(k3: ->(Int,Int). app(k3, 999))))), abs(v4: ->(->(Int,->(->(Bool,Int),Int)),->(->(Int,Int),Int)). app(abs(k5: ->(->(Int,->(->(Bool,Int),Int)),Int). app(k5, abs(x: Int. abs(k6: ->(Bool,Int). app(k6, false))))), abs(v7: ->(Int,->(->(Bool,Int),Int)). app(app(v4, v7), k1)))))), abs(a: Int. a))

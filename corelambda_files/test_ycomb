@@ -1,0 +1,13 @@
+let
+    fx = abs(f:->(->(Int,Int), ->(Int,Int)). 
+    app(abs(x:->(->(Int,Int), ->(Int,Int)). app(f,(app(x,x)))), 
+        abs(x:->(->(Int,Int), ->(Int,Int)). app(f,(app(x,x))))))
+in
+
+app (
+app(fx, (abs (f:->(Int,Int). abs (x: Int. if =(0,x) then 0 else +(x, app(f, -(x,1))) fi))))
+,
+100
+)
+
+end

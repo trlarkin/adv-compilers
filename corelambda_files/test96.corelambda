@@ -1,0 +1,35 @@
+let
+  nilChar = fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+     tag(nil=unit as Variant(nil:Unit,cons:Record(fst:Char,snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))
+in
+let
+  consChar = abs(n:Char. abs(l:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))). 
+  fold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), 
+     tag(cons=record(fst=n,snd=l) as Variant(nil:Unit,cons:Record(fst:Char,
+                                                                  snd:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X)))))))))
+in
+let
+  appendChar = fix (abs (append:->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),->(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))),Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))))).
+         abs (xs:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+             abs (ys:Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))).
+                 case unfold(Mu(X.Variant(nil:Unit,cons:Record(fst:Char,snd:X))), xs) of
+                    nil=u => ys
+                  | cons=p => let hd = project(p.fst)
+                              in let tl = project(p.snd)
+                              in app (app (consChar, hd), app (app (append, tl), ys))
+                              end end
+                 esac
+             ))))
+in
+let
+  stringA = app (app (consChar, 'A'), app (app (consChar, 'B'), nilChar))
+in
+let
+  stringX = app (app (consChar, 'X'), nilChar)
+in
+  app (app (appendChar, stringA), stringX)
+end
+end
+end
+end
+end

@@ -1,0 +1,37 @@
++(
+let f =
+abs(xxx:Int.
++(
++(+(+(2,let k = 5 in +(k,let l=4 in +(l,l) end) end),3),7)
+,
++(
+let p =   let q = 6 in +(q,q) end
+in let r = 5 in +(r,p) end end
+,
++(
+let x = +(2,let y = +(3,4) in +(7,y) end)
+in
+  let z = *(let w = +(x,x) in w end, let t = -(2,x) in +(t,let m = /( let yyy=+(3,let zzz= -(t,100) in +(zzz,t) end) in +(2,+(yyy,xxx)) end,3) in +(xxx,*(m,t)) end) end)
+  in
+    +(x,-(xxx,z))
+  end
+end,
+let a =
+   let x = +(2,let y = +(3,4) in +(7,y) end)
+in
+  let z = *(let w = +(x,x) in w end, let t = -(x,x) in *(t,t) end)
+  in
+    +(x,-(xxx,z))
+  end
+end
+in
+  /(a,a)
+end
+)
+)
+)
+)
+in app (let g = f in f end,let n = 2 in *(n,n) end) end
+,
+100
+)

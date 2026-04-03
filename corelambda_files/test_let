@@ -1,0 +1,7 @@
+let x = 1 in 
+    let y = 20 in
+        let z = 300 in
+            -(z, -(y,x))
+        end
+    end
+end

@@ -1,0 +1,83 @@
+-- type Nat = Mu(Nat.Variant(Z:Unit,S:Nat))
+let
+  -- Z : Nat
+  Z = fold(Mu(Nat.Variant(Z:Unit,S:Nat)), tag (Z=unit as Variant(Z:Unit,S:Mu(Nat.Variant(Z:Unit,S:Nat)))))
+in
+let
+  -- S : Nat -> Nat
+  S = abs (n: Mu(Nat.Variant(Z:Unit,S:Nat)).
+           fold (Mu(Nat.Variant(Z:Unit,S:Nat)), tag (S=n as Variant(Z:Unit,S:Mu(Nat.Variant(Z:Unit,S:Nat))))))
+in
+let
+  -- toInt : Nat -> Int
+  toInt = fix (abs (toInt:->(Mu(Nat.Variant(Z:Unit,S:Nat)),Int).
+               abs (x:Mu(Nat.Variant(Z:Unit,S:Nat)).
+               case unfold(Mu(Nat.Variant(Z:Unit,S:Nat)), x) of
+	          Z=u => 0
+		| S=n => +(1,app(toInt,n))
+	       esac
+	       )))
+in
+let
+  -- fromInt : Int -> Nat
+  fromInt = fix (abs (fromInt:->(Int,Mu(Nat.Variant(Z:Unit,S:Nat))).
+                 abs (x:Int.
+		 if <(x,1) then Z else app (S, app (fromInt, -(x,1))) fi
+		 )))
+in
+{-let
+  -- fromInt : Int -> Nat
+  fromInt = fix (_T1->T1)
+in-}
+let
+  -- natPlus : Nat -> Nat -> Nat
+  natPlus = fix (abs (natPlus: ->(Mu(Nat.Variant(Z:Unit,S:Nat)),->(Mu(Nat.Variant(Z:Unit,S:Nat)),Mu(Nat.Variant(Z:Unit,S:Nat)))).
+                 abs (x: Mu(Nat.Variant(Z:Unit,S:Nat)).
+		 abs (y: Mu(Nat.Variant(Z:Unit,S:Nat)).
+		 case unfold(Mu(Nat.Variant(Z:Unit,S:Nat)),x) of
+		    Z=u => y
+		  | S=x' => fold(Mu(Nat.Variant(Z:Unit,S:Nat)),
+		                tag(S=app(app(natPlus,x'),y) as Variant(Z:Unit,S:Mu(Nat.Variant(Z:Unit,S:Nat)))))
+		 esac
+		 ))))
+in
+let
+  -- natTimes : Nat -> Nat -> Nat
+  natTimes = fix (abs (natTimes: ->(Mu(Nat.Variant(Z:Unit,S:Nat)),->(Mu(Nat.Variant(Z:Unit,S:Nat)),Mu(Nat.Variant(Z:Unit,S:Nat)))).
+                  abs (x: Mu(Nat.Variant(Z:Unit,S:Nat)).
+		  abs (y: Mu(Nat.Variant(Z:Unit,S:Nat)).
+		  case unfold(Mu(Nat.Variant(Z:Unit,S:Nat)),y) of
+		     Z=u => Z
+		   | S=y' => app(app(natPlus,app(app(natTimes,x),y')),x)
+		  esac
+		  ))))
+in
+let
+  -- natExp : Nat -> Nat -> Nat
+  natExp = fix (abs (natExp: ->(Mu(Nat.Variant(Z:Unit,S:Nat)),->(Mu(Nat.Variant(Z:Unit,S:Nat)),Mu(Nat.Variant(Z:Unit,S:Nat)))).
+                abs (x: Mu(Nat.Variant(Z:Unit,S:Nat)).
+	        abs (y: Mu(Nat.Variant(Z:Unit,S:Nat)).
+		case unfold(Mu(Nat.Variant(Z:Unit,S:Nat)),y) of
+         	   Z=u => app(S,Z)
+		 | S=y' => app(app(natTimes,x),app(app(natExp,x),y'))
+		esac
+		))))
+in
+  app (
+  abs (x: Int.
+       let nx = app (fromInt, x)
+       in
+       let nxx = app (app (natExp, nx), nx)
+       in
+         app (toInt, nxx)
+       end
+       end
+       ),
+  3)
+end
+end
+end
+end
+end
+end
+end
